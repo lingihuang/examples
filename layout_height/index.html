@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Layout Samples</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="../libs/bootstrap-3.1.1/dist/css/bootstrap.min.css">
 <style type="text/css">
 html {
     height: 100%;
@@ -62,7 +62,9 @@ body {
 .miii-footer-row {
     bottom: 0;
     left: 0;
+    margin: 0;
     position: absolute;
+    width: 100%;
     z-index: 1;
 }
 .miii-footer {
@@ -105,10 +107,10 @@ body {
     <div class="miii-body-content">
         <div class="container miii-container">
             <div class="row miii-row">
-                <div class="span2 miii-sidebar">
+                <div class="col-md-2 miii-sidebar">
                     <h3>Sidebar Contents</h3>
                 </div>
-                <div class="span10 miii-content">
+                <div class="col-md-10 miii-content">
                     <h3>Main Contents</h3>
                     <p>The Adventures of Pinocchio is a story about an animated puppet, talking crickets, boys who turn into donkeys and other fairy tale devices that would be familiar to a reader of Alice in Wonderland or Brothers Grimm; in fact earlier in his career Collodi worked on a translation of Mother Goose. However, Pinocchio's world is not a traditional fairy-tale world, instead containing the hard realities of the need for food, shelter, and the basic measures of daily life. The setting of the story is in fact the very real Tuscan area of Italy. It was a unique literary melding of genres for its time.</p>
                     <p>The Adventures of Pinocchio is a story about an animated puppet, talking crickets, boys who turn into donkeys and other fairy tale devices that would be familiar to a reader of Alice in Wonderland or Brothers Grimm; in fact earlier in his career Collodi worked on a translation of Mother Goose. However, Pinocchio's world is not a traditional fairy-tale world, instead containing the hard realities of the need for food, shelter, and the basic measures of daily life. The setting of the story is in fact the very real Tuscan area of Italy. It was a unique literary melding of genres for its time.</p>
@@ -116,7 +118,7 @@ body {
                 </div>
             </div>
             <div class="row miii-footer-row">
-                <div class="span12 miii-footer">
+                <div class="col-md-12 miii-footer">
                     <h3>Bottom Footer</h3>
                 </div>
             </div>
@@ -137,11 +139,11 @@ body {
     <div class="miii-body-content">
         <div class="container miii-container">
             <div class="row miii-row">
-                <div class="span2 miii-sidebar">
+                <div class="col-md-2 miii-sidebar">
                     <h3>Sidebar Contents</h3>
                     <p>The Adventures of Pinocchio is a story about an animated puppet, talking crickets, boys who turn into donkeys and other fairy tale devices that would be familiar to a reader of Alice in Wonderland or Brothers Grimm; in fact earlier in his career Collodi worked on a translation of Mother Goose. However, Pinocchio's world is not a traditional fairy-tale world, instead containing the hard realities of the need for food, shelter, and the basic measures of daily life. The setting of the story is in fact the very real Tuscan area of Italy. It was a unique literary melding of genres for its time.</p>
                 </div>
-                <div class="span10 miii-content">
+                <div class="col-md-10 miii-content">
                     <h3>Main Contents</h3>
                     <p>The Adventures of Pinocchio is a story about an animated puppet, talking crickets, boys who turn into donkeys and other fairy tale devices that would be familiar to a reader of Alice in Wonderland or Brothers Grimm; in fact earlier in his career Collodi worked on a translation of Mother Goose. However, Pinocchio's world is not a traditional fairy-tale world, instead containing the hard realities of the need for food, shelter, and the basic measures of daily life. The setting of the story is in fact the very real Tuscan area of Italy. It was a unique literary melding of genres for its time.</p>
                     <p>The Adventures of Pinocchio is a story about an animated puppet, talking crickets, boys who turn into donkeys and other fairy tale devices that would be familiar to a reader of Alice in Wonderland or Brothers Grimm; in fact earlier in his career Collodi worked on a translation of Mother Goose. However, Pinocchio's world is not a traditional fairy-tale world, instead containing the hard realities of the need for food, shelter, and the basic measures of daily life. The setting of the story is in fact the very real Tuscan area of Italy. It was a unique literary melding of genres for its time.</p>
@@ -156,7 +158,7 @@ body {
                 </div>
             </div>
             <div class="row miii-footer-row">
-                <div class="span12 miii-footer">
+                <div class="col-md-12 miii-footer">
                     <h3>Bottom Footer</h3>
                 </div>
             </div>
@@ -164,7 +166,7 @@ body {
     </div>
 </div>
 
-<script src="jquery-1.10.2.min.js"></script>
+<script src="../libs/jquery/jquery-1.11.1.js"></script>
 <script type="text/javascript">
     $('#less-button').on('click', function () {
         $('#less-button').addClass('btn-primary');

@@ -45,8 +45,8 @@
         var apiFileListUrl     = '/filemanage/samples/treeview/api/files/getFileList',
             apiFileListUrl     = '/filemanage/samples/treeview/api/getFileList.php',
             apiCreateFolderUrl = '/filemanage/samples/treeview/api/files/createFolder',
-            folderIconSrc      = '/filemanage/samples/libraries/jstree-v.pre1.0/themes/miii/ico_folder.png',
-            userFolderIconSrc  = '/filemanage/samples/libraries/jstree-v.pre1.0/themes/miii/ico_folder_user.png',
+            folderIconSrc      = '/filemanage/samples/libs/jstree-v.pre1.0/themes/miii/ico_folder.png',
+            userFolderIconSrc  = '/filemanage/samples/libs/jstree-v.pre1.0/themes/miii/ico_folder_user.png',
             currentPath        = '',
             isInitialQuery     = false,
             hideClass          = 'hide',
@@ -609,7 +609,7 @@
                 }
             };
 
-            $.jstree._themes = '/filemanage/samples/libraries/jstree-v.pre1.0/themes/';
+            $.jstree._themes = '/filemanage/samples/libs/jstree-v.pre1.0/themes/';
             treeviewConfig = {
                 'plugins': [
                     'themes', 'json_data', 'ui', 'types', 'crrm'
