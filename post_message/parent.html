@@ -28,7 +28,7 @@ var iframeElement,
     handleMessage;
 
 handleMessage = function (e) {
-    if (e.origin !== "http://a.mimgs.com") {
+    if (e.origin !== "http://examples.lingihuang.com") {
         return;
     }
 
@@ -48,7 +48,7 @@ handleMessage = function (e) {
 window.onload = function (e) {
     iframeElement = document.getElementById("my-iframe");
     // Parent postMessage.
-    iframeElement.contentWindow.postMessage("ready", "http://a.mimgs.com");
+    iframeElement.contentWindow.postMessage("ready", "http://examples.lingihuang.com");
 };
 
 if (window.addEventListener) {
@@ -60,7 +60,7 @@ if (window.addEventListener) {
 </head>
 
 <body>
-    <iframe id="my-iframe" name="my-iframe" height="100%" width="100%" src="http://a.mimgs.com/index/child.html" allowtransparency="true" frameborder="0" scrolling="No"></iframe>
+    <iframe id="my-iframe" name="my-iframe" height="100%" width="100%" src="http://examples.lingihuang.com/post_message/child.html" allowtransparency="true" frameborder="0" scrolling="No"></iframe>
 
 </body>
 </html>
