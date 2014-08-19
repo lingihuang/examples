@@ -23,18 +23,22 @@ get()
 ********************************************************************************************************/
 var CHECKBOX = function(_checkboxListElement) {
     var _self = this;
-    var _checkboxListElement = (typeof _checkboxListElement == "string") ? document.getElementById(_checkboxListElement) : _checkboxListElement;
+    var _checkboxListElement = (typeof _checkboxListElement === "string") ? document.getElementById(_checkboxListElement) : _checkboxListElement;
     var _initialize = function() {
-        if (!_checkboxListElement) return;
+        if (!_checkboxListElement) {
+            return;
+        }
         var children = _checkboxListElement.getElementsByTagName("LI");
         for (var node=0; node<children.length; node++) {
             var checkboxElement = children[node].getElementsByTagName("span")[0];
             checkboxElement.onStatus = "checkbox-on-status";
             checkboxElement.offStatus = "checkbox-off-status";
-            if (!checkboxElement.getAttribute("checked"))
+            if (!checkboxElement.getAttribute("checked")) {
                 checkboxElement.setAttribute("checked", "false");
-            if (!checkboxElement.getAttribute("value"))
+            }
+            if (!checkboxElement.getAttribute("value")) {
                 checkboxElement.setAttribute("value", "");
+            }
             GENERIC.addEvent(checkboxElement, "click", _onToggle);
         }
     };
@@ -52,8 +56,9 @@ var CHECKBOX = function(_checkboxListElement) {
         var children = _checkboxListElement.getElementsByTagName("LI");
         for (var node=0; node<children.length; node++) {
             var checkboxElement = children[node].getElementsByTagName("span")[0];
-            if (checkboxElement.getAttribute("checked") == "true")
+            if (checkboxElement.getAttribute("checked") === "true") {
                 value = checkboxElement.getAttribute("value");
+            }
         }
         return value;
     };
@@ -102,20 +107,24 @@ var SELECTLIST = function(_selectElement) {
     var _self = this;
     var _selectElement = _selectElement, _headTextNode, _arrowDownElement, _listElement;
     var _initialize = function() {
-        if (!_selectElement) return;
-        if (typeof _selectElement == "string") _selectElement = document.getElementById(_selectElement);
+        if (!_selectElement) {
+            return;
+        }
+        if (typeof _selectElement === "string") {
+            _selectElement = document.getElementById(_selectElement);
+        }
         var children = _selectElement.childNodes;
         var dtElement;
         for (var node=0; node<children.length; node++) {
-            if (children[node].nodeName.toLowerCase() == "span") {
+            if (children[node].nodeName.toLowerCase() === "span") {
                 _arrowDownElement = children[node];
                 GENERIC.addEvent(_arrowDownElement, "click", _onToggle);
             }
-            if (children[node].nodeName.toLowerCase() == "dt") {
+            if (children[node].nodeName.toLowerCase() === "dt") {
                 dtElement = children[node];
                 _headTextNode = children[node].childNodes[0];
             }
-            if (children[node].nodeName.toLowerCase() == "dd") {
+            if (children[node].nodeName.toLowerCase() === "dd") {
                 _listElement = children[node];
                 GENERIC.addEvent(_listElement, "mouseout", _onClose);
                 _listElement.style.display = "none";
@@ -124,17 +133,19 @@ var SELECTLIST = function(_selectElement) {
                 _listElement.style.top = dtElement.offsetHeight + "px";
                 _listElement.style.zIndex = "10";
                 var options = children[node].getElementsByTagName("a");
-                for (var o=0; o<options.length; o++)
+                for (var o=0; o<options.length; o++) {
                     GENERIC.addEvent(options[o], "click", _onClickHandler);
+                }
             }
         }
         GENERIC.addEvent(document, "keydown", _onKeydownHandler);
     };
     var _onToggle = function() {
-        if (_listElement.style.display == "none")
+        if (_listElement.style.display === "none") {
             _onShow();
-        else if (_listElement.style.display == "block")
+        } else if (_listElement.style.display == "block") {
             _onHide();
+        }
         return false;
     };
     var _onShow = function() {
@@ -152,8 +163,9 @@ var SELECTLIST = function(_selectElement) {
         //var relatedTarget = (window.event) ? event.toElement : event.relatedTarget;
         var relatedTarget = GENERIC.findRelatedTarget(event);
         // Element.contains determins if one element is nested inside another.
-        if (currentTarget != relatedTarget && !ELEMENT.contains(currentTarget, relatedTarget))
+        if (currentTarget != relatedTarget && !ELEMENT.contains(currentTarget, relatedTarget)) {
             _onHide();
+        }
     };
     var _onClickHandler = function() {
         _headTextNode.innerHTML = this.innerHTML;
@@ -161,8 +173,9 @@ var SELECTLIST = function(_selectElement) {
         return false;
     };
     var _onKeydownHandler = function(event) {
-        if (event.keyCode == 27)
+        if (event.keyCode == 27) {
             _onHide();
+        }
     };
     (function(){
         _initialize();

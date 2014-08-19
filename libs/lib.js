@@ -1,7 +1,8 @@
 ﻿var DEBUG = {
     log: function(obj) {
-        if (typeof console.log != "undefined")
+        if (typeof console.log !== "undefined") {
             console.log(obj);
+        }
     }
 };
 
@@ -55,61 +56,76 @@ getMousePos: return the position of the mouse.
 var GENERIC = {
     findTarget: function(event, node) {
         var target;
-        if (window.event && window.event.srcElement) // For IE
+        if (window.event && window.event.srcElement) { // For IE
             target = window.event.srcElement;
-        else if (event && event.target) // For Firefox, Opera
+        } else if (event && event.target) { // For Firefox, Opera
             target = event.target;
-        while (node && target && target.nodeName.toLowerCase()!= node.toLowerCase()) // For Safari
+        }
+        while (node && target && target.nodeName.toLowerCase()!== node.toLowerCase()) { // For Safari
             target = target.parentNode;
+        }
         return target;
     },
     findCurrentTarget: function(event, node) {
         var currentTarget;
-        if (window.event) // For IE
+        if (window.event) { // For IE
             currentTarget = node;
-        else if (event && event.currentTarget) // For Firefox, Opera
+        } else if (event && event.currentTarget) { // For Firefox, Opera
             currentTarget = event.currentTarget;
+        }
         return currentTarget;
     },
     findRelatedTarget: function(event) {
         var relatedTarget;
         if (window.event) { // For IE
-            if (window.event.type == "mouseover")
+            if (window.event.type === "mouseover") {
                 relatedTarget = window.event.fromElement;
-            else if (window.event.type == "mouseout")
+            } else if (window.event.type === "mouseout") {
                 relatedTarget = window.event.toElement;
+            }
         } else if (event && event.relatedTarget) { // For Firefox
             relatedTarget = event.relatedTarget;
         }
         return relatedTarget;
     },
     stopPropagation: function(event) {
-        if (window.event) // For IE
+        if (window.event) { // For IE
             window.event.cancelBubble = true;
-        if (event && event.stopPropagation) // For Firefox, Opera, Safari
+        }
+        if (event && event.stopPropagation) { // For Firefox, Opera, Safari
             event.stopPropagation();
+        }
     },
     cancelDefault: function(event) {
-        if (window.event) // For IE
+        if (window.event) { // For IE
             window.event.returnValue = false;
-        if (event && event.preventDefault) // For Firefox, Opera, Safari
+        }
+        if (event && event.preventDefault) { // For Firefox, Opera, Safari
             event.preventDefault();
+        }
     },
     addEvent: function(obj, type, fn) {
-        if (!obj) return;
-        if (type == "mousewheel" && navigator.userAgent.match("Gecko/"))
+        if (!obj) {
+            return;
+        }
+        if (type === "mousewheel" && navigator.userAgent.match("Gecko/")) {
             type = "DOMMouseScroll";
+        }
         // Fix the bug the "this" keyword refers to the global window object when event handlers registered with attachEvent() are invoked as global functions instead of as methods of the element on which they are registered.
         if (obj.attachEvent) { // For IE.
             obj["e"+type+fn] = fn;
-            obj[type+fn] = function(){obj["e"+type+fn]( window.event );}
+            obj[type+fn] = function() {
+                obj["e"+type+fn]( window.event );
+            }
             obj.attachEvent("on"+type, obj[type+fn]);
         } else if (obj.addEventListener) { // For Firefox, Opera, Safari
             obj.addEventListener(type, fn, false);
         }
     },
     removeEvent: function(obj, type, fn) {
-        if (!obj) return;
+        if (!obj) {
+            return;
+        }
         if (obj.detachEvent) { // For IE
             obj.detachEvent("on"+type, obj[type+fn]);
             obj[type+fn] = null;
@@ -141,13 +157,16 @@ var GENERIC = {
 		*/
     },
     getEvent: function() {
-        if (document.all) return window.event;
+        if (document.all) {
+            return window.event;
+        }
         var func = arguments.callee.caller;
         while (func != null) {
             var args = func.arguments[i];
             if (args) {
-                if ((args.constructor == Event || args.constructor == MouseEvent) || (typeof args == "object" && args.preventDefault && args.stopPropagation))
+                if ((args.constructor == Event || args.constructor == MouseEvent) || (typeof args === "object" && args.preventDefault && args.stopPropagation)) {
                     return args;
+                }
             }
             func = func.caller;
         }
@@ -195,90 +214,100 @@ getHorizontalScroll/getVerticalScroll: return the position of the horizontal/ver
 var GEOMETRY = {
     getWindowX: function() {
         var x = 0;
-        if (window.screenLeft) // For IE
+        if (window.screenLeft) { // For IE
             x = window.screenLeft;
-        else if (window.screenX) // For Modern Browsers
+        } else if (window.screenX) { // For Modern Browsers
             x = window.screenX;
+        }
         return x;
     },
     getWindowY: function() {
         var y = 0;
-        if (window.screenTop) // For IE
+        if (window.screenTop) { // For IE
             y = window.screenTop;
-        else if (window.screenY) // For Modern Browsers
+        } else if (window.screenY) { // For Modern Browsers
             y = window.screenY;
+        }
         return y;
     },
     getViewportWidth: function() {
         var width = 0;
-        if (window.innerWidth) // For Modern Browsers
+        if (window.innerWidth) { // For Modern Browsers
             width = window.innerWidth;
-        else if (document.documentElement && document.documentElement.clientWidth) // For IE
+        } else if (document.documentElement && document.documentElement.clientWidth) { // For IE
             width = document.documentElement.clientWidth;
-        else if (document.body && document.body.clientWidth)
+        } else if (document.body && document.body.clientWidth) {
             width = document.body.clientWidth;
+        }
         return width;
     },
     getViewportHeight: function() {
         var height = 0;
-        if (window.innerHeight) // For Modern Browsers
+        if (window.innerHeight) { // For Modern Browsers
             height = window.innerHeight;
-        else if (document.documentElement && document.documentElement.clientHeight) // For IE
+        } else if (document.documentElement && document.documentElement.clientHeight) { // For IE
             height = document.documentElement.clientHeight;
-        else if (document.body && document.body.clientHeight)
+        } else if (document.body && document.body.clientHeight) {
             height = document.body.clientHeight;
+        }
         return height;
     },
     getDocumentWidth: function() {
         var width = 0;
-        if (document.documentElement && document.documentElement.scrollWidth) // For all browsers
+        if (document.documentElement && document.documentElement.scrollWidth) { // For all browsers
             width = document.documentElement.scrollWidth;
-        else if (document.body && document.body.scrollWidth)
+        } else if (document.body && document.body.scrollWidth) {
             width = document.body.scrollWidth;
+        }
         return width;
     },
     getDocumentHeight: function() {
         var height = 0;
-        if (document.documentElement && document.documentElement.scrollHeight) // For all browsers
+        if (document.documentElement && document.documentElement.scrollHeight) { // For all browsers
             height = document.documentElement.scrollHeight;
-        else if (document.body && document.body.scrollHeight)
+        } else if (document.body && document.body.scrollHeight) {
             height = document.body.scrollHeight;
+        }
         return height;
     },
     getHorizontalScroll: function() {
         var scrollX = 0;
-        /*if (typeof window.pageXOffset == 'number')
+        /*if (typeof window.pageXOffset == 'number') {
             scrollX = window.pageXOffset;
-        else if (document.documentElement && document.documentElement.scrollLeft)
+        } else if (document.documentElement && document.documentElement.scrollLeft) {
             scrollX = document.documentElement.srollLeft;
-        else if (document.body && document.body.scrollLeft)
+        } else if (document.body && document.body.scrollLeft) {
             scrollX = document.body.scrollLeft;
-        else if (window.scrollX)
-            scrollX = window.scrollX;*/
-        if (window.pageXOffset) // For Modern Browsers
+        } else if (window.scrollX) {
+            scrollX = window.scrollX;
+        }*/
+        if (window.pageXOffset) { // For Modern Browsers
             scrollX = window.pageXOffset;
-        else if (document.documentElement && document.documentElement.scrollLeft)
+        } else if (document.documentElement && document.documentElement.scrollLeft) {
             scrollX = document.documentElement.srollLeft;
-        else if (document.body && document.body.scrollLeft)
+        } else if (document.body && document.body.scrollLeft) {
             scrollX = document.body.scrollLeft;
+        }
         return scrollX;
     },
     getVerticalScroll: function() {
         var scrollY = 0;
-        /*if (typeof window.pageYOffset == 'number')
+        /*if (typeof window.pageYOffset == 'number') {
             scrollY = window.pageYOffset;
-        else if (document.documentElement && document.documentElement.scrollTop)
+        } else if (document.documentElement && document.documentElement.scrollTop) {
             scrollY = document.documentElement.srollTop;
-        else if (document.body && document.body.scrollTop)
+        } else if (document.body && document.body.scrollTop) {
             scrollY = document.body.scrollTop;
-        else if (window.scrollY)
-            scrollY = window.scrollY;*/
-        if (window.pageYOffset) // For Modern Browsers
+        } else if (window.scrollY) {
+            scrollY = window.scrollY;
+        }*/
+        if (window.pageYOffset) { // For Modern Browsers
             scrollY = window.pageYOffset;
-        else if (document.documentElement && document.documentElement.scrollTop)
+        } else if (document.documentElement && document.documentElement.scrollTop) {
             scrollY = document.documentElement.srollTop;
-        else if (document.body && document.body.scrollTop)
+        } else if (document.body && document.body.scrollTop) {
             scrollY = document.body.scrollTop;
+        }
         return scrollY;
     },
 	getPageSize: function(){
@@ -333,7 +362,7 @@ var GEOMETRY = {
 	getWindowSize: function(){
 		var windowWidth, windowHeight;
 		if (window.innerHeight) {	// all except Explorer
-			if(document.documentElement.clientWidth){ // Firefox, Chrome, Safari
+			if(document.documentElement.clientWidth) { // Firefox, Chrome, Safari
 				// document.documentElement.clientWidth: 不含scrollbar width
 				windowWidth = document.documentElement.clientWidth;
 			} else {
@@ -401,18 +430,27 @@ offset: return the position of the element relative to the top-left corner of th
 ********************************************************************************************************/
 var CSS = {
     getStyle: function(element) {
-        if (!element) return;
-        if (typeof element == "string") element = document.getElementById(element);
-        if (element.currentStyle) // For IE
+        if (!element) {
+            return;
+        }
+        if (typeof element === "string") {
+            element = document.getElementById(element);
+        }
+        if (element.currentStyle) { // For IE
             return element.currentStyle;
-        else if (document.defaultView && document.defaultView.getComputedStyle) // For Modern Browsers
+        } else if (document.defaultView && document.defaultView.getComputedStyle) { // For Modern Browsers
             return document.defaultView.getComputedStyle(element, null);
-        else
+        } else {
             return element.style;
+        }
     },
     get: function(element, name) {
-        if (!element) return;
-        if (typeof element == "string") element = document.getElementById(element);
+        if (!element) {
+            return;
+        }
+        if (typeof element === "string") {
+            element = document.getElementById(element);
+        }
         // Convert "background-color" to "backgroundColor"
         var camelCase = name.replace(/\-(\w)/g, function(all, letter) {
             return letter.toUpperCase();
@@ -427,60 +465,97 @@ var CSS = {
         }
     },
     set: function(element, properties) {
-        if (!element) return;
-        if (typeof element == "string") element = document.getElementById(element);
+        if (!element) {
+            return;
+        }
+        if (typeof element === "string") {
+            element = document.getElementById(element);
+        }
         for (var name in properties) {
             // Convert "background-color" to "backgroundColor"
             var camelCase = name.replace(/\-(\w)/g, function(all, letter) {
                 return letter.toUpperCase();
             });
-            if (typeof properties[name] == "number") element.style[camelCase] = (parseInt(properties[name], 10) || 0) + "px";
-            if (typeof properties[name] == "string") element.style[camelCase] = properties[name];
+            if (typeof properties[name] === "number") {
+                element.style[camelCase] = (parseInt(properties[name], 10) || 0) + "px";
+            }
+            if (typeof properties[name] === "string") {
+                element.style[camelCase] = properties[name];
+            }
         }
     },
     innerWidth: function(element, value) {
-        if (!element) return;
-        if (typeof element == "string") element = document.getElementById(element);
-        if (value)
+        if (!element) {
+            return;
+        }
+        if (typeof element === "string") {
+            element = document.getElementById(element);
+        }
+        if (value) {
             element.clientWidth = value;
-        else
+        } else {
             return element.clientWidth;
+        }
     },
     innerHeight: function(element, value) {
-        if (!element) return;
-        if (typeof element == "string") element = document.getElementById(element);
-        if (value)
+        if (!element) {
+            return;
+        }
+        if (typeof element === "string") {
+            element = document.getElementById(element);
+        }
+        if (value) {
             element.clientHeight = value;
-        else
+        } else {
             return element.clientHeight;
+        }
     },
     outerWidth: function(element, value) {
-        if (!element) return;
-        if (typeof element == "string") element = document.getElementById(element);
-        if (value)
+        if (!element) {
+            return;
+        }
+        if (typeof element === "string") {
+            element = document.getElementById(element);
+        }
+        if (value) {
             element.offsetWidth = value;
-        else
+        } else {
             return element.offsetWidth;
+        }
     },
     outerHeight: function(element, value) {
-        if (!element) return;
-        if (typeof element == "string") element = document.getElementById(element);
-        if (value)
+        if (!element) {
+            return;
+        }
+        if (typeof element === "string") {
+            element = document.getElementById(element);
+        }
+        if (value) {
             element.offsetHeight = value;
-        else
+        } else {
             return element.offsetHeight;
+        }
     },
     scrollWidth: function(element, value) {
-        if (!element) return;
-        if (typeof element == "string") element = document.getElementById(element);
-        if (value)
+        if (!element) {
+            return;
+        }
+        if (typeof element === "string") {
+            element = document.getElementById(element);
+        }
+        if (value) {
             element.scrollWidth = value;
-        else
+        } else {
             return element.scrollWidth;
+        }
     },
     scrollHeight: function(element, value) {
-        if (!element) return;
-        if (typeof element == "string") element = document.getElementById(element);
+        if (!element) {
+            return;
+        }
+        if (typeof element === "string") {
+            element = document.getElementById(element);
+        }
         var height = 0;
         if (value) {
             element.scrollHeight = value;
@@ -490,8 +565,12 @@ var CSS = {
         }
     },
     scrollPos: function(element, value) {
-        if (!element) return;
-        if (typeof element == "string") element = document.getElementById(element);
+        if (!element) {
+            return;
+        }
+        if (typeof element === "string") {
+            element = document.getElementById(element);
+        }
         if (value) {
             element.scrollLeft = value.scrollLeft;
             element.scrollTop = value.scrollTop;
@@ -500,8 +579,12 @@ var CSS = {
         }
     },
     offset: function(element) {
-        if (!element) return;
-        if (typeof element == "string") element = document.getElementById(element);
+        if (!element) {
+            return;
+        }
+        if (typeof element === "string") {
+            element = document.getElementById(element);
+        }
         //var elem = element;
         var left = 0, top = 0;
         /*while (elem.offsetParent) {
@@ -514,8 +597,12 @@ var CSS = {
             top += elem.offsetTop;
         }
         for (elem = element.parentNode; elem && elem != document.body; elem = elem.parentNode) {
-            if (elem.scrollLeft) left -= elem.scrollLeft;
-            if (elem.scrollTop) top -= elem.scrollTop;
+            if (elem.scrollLeft) {
+                left -= elem.scrollLeft;
+            }
+            if (elem.scrollTop) {
+                top -= elem.scrollTop;
+            }
         }
         return {left:left, top:top};
     }
@@ -534,47 +621,77 @@ remove(): remove child nodes from the parent node.
 ********************************************************************************************************/
 var ELEMENT = {
     has: function(parent, child) {
-        if (!parent || !child) return;
-        if (typeof parent == "string") parent = document.getElementById(parent);
-        if (typeof child == "string") parent = document.getElementById(child);
+        if (!parent || !child) {
+            return;
+        }
+        if (typeof parent === "string") {
+            parent = document.getElementById(parent);
+        }
+        if (typeof child === "string") {
+            parent = document.getElementById(child);
+        }
         var element = child;
-        while(element.parentNode) {
-            if (element.parentNode == parent)
+        while (element.parentNode) {
+            if (element.parentNode == parent) {
                 return true;
+            }
             element = element.parentNode;
         }
         return false;
     },
     contains: function(parent, child) {
-        if (!parent || !child) return;
-        if (typeof parent == "string") parent = document.getElementById(parent);
-        if (typeof child == "string") child = parent.getElementsByTagName(child);
+        if (!parent || !child) {
+            return;
+        }
+        if (typeof parent === "string") {
+            parent = document.getElementById(parent);
+        }
+        if (typeof child === "string") {
+            child = parent.getElementsByTagName(child);
+        }
         return child;
     },
     find: function(classname, parent) {
-		if (!parent) parent = document.body;
+		if (!parent) {
+            parent = document.body;
+        }
 		var children = parent.childNodes;
 		for (var node=0; node<children.length; node++) {
-			if (children[node].nodeType == 1 && children[node].className && children[node].className == classname)
+			if (children[node].nodeType === 1 && children[node].className && children[node].className === classname) {
 				return children[node];
+            }
 		}
 	},
     append: function(parent, child) {
-        if (!parent || !child) return;
-        if (typeof parent == "string") parent = document.getElementById(parent);
-        if (typeof child == "string") child = parent.getElementsByTagName(child);
+        if (!parent || !child) {
+            return;
+        }
+        if (typeof parent === "string") {
+            parent = document.getElementById(parent);
+        }
+        if (typeof child === "string") {
+            child = parent.getElementsByTagName(child);
+        }
         if (child.length > 0) {
-            for (var i=0; i<child.length; i++)
+            for (var i=0; i<child.length; i++) {
                 parent.appendChild(child[i]);
+            }
         }
     },
     remove: function(parent, child) {
-        if (!parent || !child) return;
-        if (typeof parent == "string") parent = document.getElementById(parent);
-        if (typeof child == "string") child = parent.getElementsByTagName(child);
+        if (!parent || !child) {
+            return;
+        }
+        if (typeof parent === "string") {
+            parent = document.getElementById(parent);
+        }
+        if (typeof child === "string") {
+            child = parent.getElementsByTagName(child);
+        }
         if (child.length > 0) {
-            for (var i=0; i<child.length; i++)
+            for (var i=0; i<child.length; i++) {
                 parent.removeChild(child[i]);
+            }
         }
     },
     disableSelection: function(element) {
@@ -596,24 +713,32 @@ var CLASSNAME = {
         return className.match(classes);
     },
     add: function(element, className) {
-        if (!element || !className) return;
-        if (element.nodeType == 1 && !this.has(element.className, className))
+        if (!element || !className) {
+            return;
+        }
+        if (element.nodeType === 1 && !this.has(element.className, className)) {
             element.className += (element.className ? " " : "") + className;
+        }
     },
     remove: function(element, className) {
-        if (!element || !className) return;
-        if (element.nodeType == 1 && this.has(element.className, className) && this.has(element.className, className).length >= 0) {
+        if (!element || !className) {
+            return;
+        }
+        if (element.nodeType === 1 && this.has(element.className, className) && this.has(element.className, className).length >= 0) {
             var newClass = "";
             var tmp = element.className.split(" ");
             for (var i=0; i<tmp.length; i++) {
-                if (tmp[i] != className)
+                if (tmp[i] != className) {
                     newClass += tmp[i] + " ";
+                }
             }
             element.className = newClass.substr(0, newClass.length-1);
         }
     },
     replace: function(element, oldString, newString) {
-        if (!element || !oldString || !newString) return;
+        if (!element || !oldString || !newString) {
+            return;
+        }
         this.remove(element, oldString);
         this.add(element, newString);
     }
@@ -626,10 +751,14 @@ Attribute
 ********************************************************************************************************/
 var ATTRIBUTE = {
     set: function(element, args) {
-        if (!element || !args) return;
-        if (element.nodeType == 1) {
+        if (!element || !args) {
+            return;
+        }
+        if (element.nodeType === 1) {
             for (var attr in args) {
-                if (typeof attr != "string") attr = attr.toString();
+                if (typeof attr !== "string") {
+                    attr = attr.toString();
+                }
                 element.setAttribute(attr, args[attr]);
             }
         }
@@ -647,34 +776,39 @@ Data Type
 ********************************************************************************************************/
 var DATATYPE = {
     isNumber: function(obj) {
-        if (obj.constructor == Number)
+        if (obj.constructor === Number) {
             return true;
-        else
+        } else {
             return false;
+        }
     },
     isString: function(obj) {
-        if (obj.constructor == String)
+        if (obj.constructor === String) {
             return true;
-        else
+        } else {
             return false;
+        }
     },
     isArray: function(obj) {
-        if (obj.constructor == Array)
+        if (obj.constructor === Array) {
             return true;
-        else
+        } else {
             return false;
+        }
     },
     isObject: function(obj) {
-        if (obj.constructor == Object)
+        if (obj.constructor === Object) {
             return true;
-        else
+        } else {
             return false;
+        }
     },
     isFunction: function(obj) {
-        if (obj.constructor == Function)
+        if (obj.constructor === Function) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 };
 /*******************************************************************************************************/
@@ -739,14 +873,16 @@ var HTTPUTILITY = {
         script.setAttribute("type", "text/javascript");  
         script.setAttribute("src", url);
         script.onload = script.onreadystatechange = function() {  
-            if (!isLoaded && (!this.readyState || this.readyState == "loaded" || this.readyState == "complete")) {  
+            if (!isLoaded && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete")) {  
                 isLoaded = true;  
-                if (typeof callback === "function")  
-                   callback();  
-                if (this.tagName.toLowerCase() == "script")  
-                   document.getElementsByTagName("head")[0].removeChild(this);  
+                if (typeof callback === "function") {
+                   callback();
+                }
+                if (this.tagName.toLowerCase() === "script") {
+                   document.getElementsByTagName("head")[0].removeChild(this);
+                }
             }  
-        };  
+        };
         var head = document.getElementsByTagName("head")[0];  
         head.appendChild(script);  
     },
@@ -757,12 +893,14 @@ var HTTPUTILITY = {
         style.setAttribute("type", "text/css");
         style.setAttribute("href", url);
         style.onload = style.onreadystatechange = function() {
-            if (!isLoaded && (!this.readyState || this.readyState == "loaded" || this.readyState == "complete")) {
+            if (!isLoaded && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete")) {
                 isLoaded = true;
-                if (typeof callback === "function")
+                if (typeof callback === "function") {
                     callback();
-                if (this.tagName.toLowerCase() == "link")
+                }
+                if (this.tagName.toLowerCase() === "link") {
                     document.getElementsByTagName("head")[0].removeChild(this);
+                }
             }
         }
         var head = document.getElementsByTagName("head")[0];
@@ -808,26 +946,33 @@ var HTTPUTILITY = {
             }
         };
         var initialize = function() {
-            if (!options) return;
-            for (var name in set)
+            if (!options) {
+                return;
+            }
+            for (var name in set) {
                 set[name]();
+            }
         };
         var set = {
             url: function() {
-                if (!options.url)
+                if (!options.url) {
                     options.url = settings.url;
+                }
             },
             type: function() {
-                if (!options.type)
+                if (!options.type) {
                     options.type = settings.type;
+                }
             },
             contentType: function() {
-                if (!options.contentType)
+                if (!options.contentType) {
                     options.contentType = settings.contentType;
+                }
             },
             cache: function() {
-                if (!options.cache)
+                if (!options.cache) {
                     options.cache = settings.cache;
+                }
             },
             dataType: function() {
                 switch(options.dataType) {
@@ -848,52 +993,67 @@ var HTTPUTILITY = {
                 }
             },
             data: function() {
-                if (options.data)
+                if (options.data) {
                     options.data = HTTPUTILITY.encodeFormData(options.data);
-                if (!options.cache)
+                }
+                if (!options.cache) {
                     options.data += "&timestamp=" + new Date().getTime();
+                }
             },
             async: function() {
-                if (!options.async)
+                if (!options.async) {
                     options.async = settings.async;
+                }
             },
             timeout: function() {
-                if (!options.timeout)
+                if (!options.timeout) {
                     options.timeout = settings.timeout;
+                }
             },
             start: function() {
-                if (!options.start)
+                if (!options.start) {
                     options.start = onStart;
+                }
             },
             progress: function() {
-                if (!options.progress)
+                if (!options.progress) {
                     options.progress = onProgress;
+                }
             },
             stop: function() {
-                if (!options.stop)
+                if (!options.stop) {
                     options.stop = onStop;
+                }
             },
             error: function() {
-                if (!options.error)
+                if (!options.error) {
                     options.error = onError;
+                }
             },
             success: function() {
-                if (!options.success)
+                if (!options.success) {
                     options.success = onSuccess;
+                }
             },
             complete: function() {
-                if (!options.complete)
+                if (!options.complete) {
                     options.complete = onComplete;
+                }
             },
             initialize: function() {
                 var xmlHttpRequest = settings.xmlHttpRequest();
-                if (xmlHttpRequest)
+                if (xmlHttpRequest) {
                     send(xmlHttpRequest);
+                }
             }
         };
         var send = function(xmlHttpRequest) {
-            if (!xmlHttpRequest) return;
-            if (timer) clearTimeout(timer);
+            if (!xmlHttpRequest) {
+                return;
+            }
+            if (timer) {
+                clearTimeout(timer);
+            }
             if (options.timeout) {
                 timer = setTimeout(function(){
                     options.onStop(xmlHttpRequest);
@@ -914,14 +1074,17 @@ var HTTPUTILITY = {
             }
         };
         var onProgress = function(xmlHttpRequest) {
-            if (xmlHttpRequest.readyState != 4) {
+            if (xmlHttpRequest.readyState !== 4) {
                 options.start(xmlHttpRequest);
             } else {
-                if (timer) clearTimeout(timer);
-                if (xmlHttpRequest.status == 0 || xmlHttpRequest.status == 200)
+                if (timer) {
+                    clearTimeout(timer);
+                }
+                if (xmlHttpRequest.status === 0 || xmlHttpRequest.status === 200) {
                     options.success(xmlHttpRequest, "success");
-                else
+                } else {
                     options.error(xmlHttpRequest, "error");
+                }
             }
         };
         var onStart = function(xmlHttpRequest) {
@@ -986,9 +1149,15 @@ del(): delete the cookie.
 ********************************************************************************************************/
 var COOKIE = {
     set: function(name, value, options) {
-        if (!name) return;
+        if (!name) {
+            return;
+        }
+
         options = options || {};
-        if (!options.expires) options.expires = 1;
+        if (!options.expires) {
+            options.expires = 1;
+        }
+
         var date = new Date();
         date.setTime(date.getTime() + options.expires*24*60*60*1000);
         var expires = "; expires=" + date.toGMTString();
@@ -998,14 +1167,19 @@ var COOKIE = {
         document.cookie = [name, "=", encodeURIComponent(value), expires, path, domain, secure].join("");
     },
     get: function(name) {
-        if (!name) return;
+        if (!name) {
+            return;
+        }
+
         var value = "";
         if (document.cookie && document.cookie != "") {
             var cookies = document.cookie.split(";");
             for (var i=0; i<cookies.length; i++) {
                 var cookie = cookies[i];
                 // Trim the space.
-                while(cookie.charAt(0) == " ") cookie = cookie.substring(1, cookie.length);
+                while(cookie.charAt(0) === " ") {
+                    cookie = cookie.substring(1, cookie.length);
+                }
                 // Tell if this cookie string begins with the name we want.
                 if (cookie.substring(0, name.length + 1) == (name + "=")) {
                     value = decodeURIComponent(cookie.substring(name.length + 1));
@@ -1016,7 +1190,9 @@ var COOKIE = {
         return value;
     },
     del: function(name) {
-        if (!name) return;
+        if (!name) {
+            return;
+        }
         this.set(name, "", -1);
     }
 };
