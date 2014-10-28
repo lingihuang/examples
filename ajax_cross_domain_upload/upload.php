@@ -3,6 +3,12 @@
 $timestamp = $_GET["timestamp"];
 $key = "file_" . $timestamp;
 
+// Check if this is an AJAX request.
+if (!isset($_SERVER["HTTP_X_REQUESTED_WITH"]))
+{
+	die();
+}
+
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
