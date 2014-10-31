@@ -135,6 +135,10 @@ https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpReq
 http://hayageek.com/jquery-ajax-form-submit/
 4. Utilizing The HTML5 File API To Choose, Upload, Preview And See Progress For Multiple Files
 http://robertnyman.com/2010/12/16/utilizing-the-html5-file-api-to-choose-upload-preview-and-see-progress-for-multiple-files/
+5. HTML5-powered Ajax file uploads
+https://www.new-bamboo.co.uk/blog/2010/07/30/html5-powered-ajax-file-uploads/
+6. Howto: Build an HTML5 file uploader with Ajax
+http://blog.alexanderschnitzler.de/howto-build-an-html5-file-uploader-with-ajax.html
 ********************/
 
 $(function () {
@@ -293,11 +297,21 @@ $(function () {
 		
 		httpRequest.open('post', formSel.attr('action'), true);
 		// Set appropriate headers.
-		httpRequest.setRequestHeader('Content-Type', 'multipart/form-data');
+		httpRequest.setRequestHeader('Cache-Control', 'no-cache');
+    	httpRequest.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		//httpRequest.setRequestHeader('Content-Type', 'multipart/form-data');
+		httpRequest.setRequestHeader('Content-Type', 'application/octet-stream');
 		httpRequest.setRequestHeader('X-File-Name', file.name);
 		httpRequest.setRequestHeader('X-File-Size', file.size);
 		httpRequest.setRequestHeader('X-File-Type', file.type);
-		httpRequest.send(file);
+
+		if ('getAsBinary' in file) {
+			// Firefox 3.5
+			httpRequest.sendAsBinary(file.getAsBinary());
+		} else {
+			// W3C-blessed interface.
+			httpRequest.send(file);
+		}
     	
 		e.preventDefault();
 	};
