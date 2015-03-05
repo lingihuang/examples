@@ -12,16 +12,19 @@
 
 <body>
     
-
 <script type="text/javascript">
 /********************
 Related Posts
-1. JavaScript学习笔记(二十五) 沙箱模式
-http://blog.csdn.net/qq838419230/article/details/8981857
-2. javascript-platform-yui
-https://github.com/josephj/javascript-platform-yui
+1. Managing JavaScript Objects
+https://msdn.microsoft.com/en-us/magazine/gg314983.aspx
+2. The Module Pattern
+http://www.addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript
 3. Core-Sandbox-Module-JS
 https://github.com/mamoo/Core-Sandbox-Module-JS
+4. JavaScript学习笔记(二十五) 沙箱模式
+http://blog.csdn.net/qq838419230/article/details/8981857
+5. javascript-platform-yui
+https://github.com/josephj/javascript-platform-yui
 ********************/
 function Sandbox(id, core) {
     this.id          = id;
@@ -59,7 +62,7 @@ var Core = (function Core() {
             callback    = args.pop();
         
         // modules can be passed as an array or as individual parameters
-        modules = (args[0] && typeof args[0] === "string") ? args : args[0];
+        modules = (args[0] && typeof args[0] === 'string') ? args : args[0];
 
         // now add modules to the core `this` object
         // no modules or "*" both mean "use all modules"
