@@ -108,35 +108,30 @@ $(function () {
             };
         }
 
+        var params = getParams(),
+            cityCode = $.isEmptyObject(params) ? defaultCode : params.cityCode;
+
+        // Set option selected.
+        $('#choice option').each(function (idx, element) {
+            if ($(element).val() === cityCode) {
+                $(element).prop('selected', true);
+            }
+        });
+
         // On the initial.
         if (history.replaceState) {
             var url = [
                 window.location.origin,
                 window.location.pathname,
-                '?cityCode=' + encodeURIComponent(defaultCode)
+                '?cityCode=' + encodeURIComponent(cityCode)
             ];
             history.replaceState({}, null, url.join(''));
-
-            // Query data.
-            queryData({
-                cityCode: encodeURIComponent(defaultCode)
-            });
-        } else {
-            // IE8 and IE9
-            var params   = getParams(),
-                cityCode = $.isEmptyObject(params) ? defaultCode : params.cityCode;
-
-            // Set option selected.
-            $('#choice option').each(function (idx, element) {
-                if ($(element).val() === cityCode) {
-                    $(element).prop('selected', true);
-                }
-            });
-            // Query data.
-            queryData({
-                cityCode: encodeURIComponent(cityCode)
-            });
         }
+
+        // Query data.
+        queryData({
+            cityCode: encodeURIComponent(cityCode)
+        });
     })();
 });
 </script>
