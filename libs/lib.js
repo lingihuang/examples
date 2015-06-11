@@ -907,7 +907,9 @@ var HTTPUTILITY = {
         head.appendChild(style);
     },
     encodeFormData: function(data) {
-        if (!data) return;
+        if (!data) {
+            return;
+        }
         var pairs = [];
         var regexp = /%20/g; // A regular expression to match an encoded space.
         for (var name in data) {
