@@ -1,4 +1,5 @@
-﻿html, body {
+html, body {
+	font: normal 12px "Noto Sans CJK TC Medium", "微軟正黑體", "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", "sans-serif";
 	margin: 0;
 	padding: 0;
 }
