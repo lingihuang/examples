@@ -401,10 +401,12 @@ var GEOMETRY = {
 Box Model
 
 Related Posts =>
+Styles and classes, getComputedStyle
+- http://javascript.info/tutorial/styles-and-classes-getcomputedstyle
 Javascript Get Styles
 - http://www.quirksmode.org/dom/getstyles.html
-Reading Effective Style Sheet Property Values
-- http://www.oreillynet.com/pub/a/javascript/excerpt/JSDHTMLCkbk_chap5/index5.html
+style、currentStyle、getComputedStyle区别介绍
+- http://www.cnblogs.com/flyjs/archive/2012/02/20/2360502.html
 Element Dimensions
 - http://snipplr.com/view/7911/element-dimensions/
 W3C DOM Compatibility
@@ -451,10 +453,12 @@ var CSS = {
         if (typeof element === "string") {
             element = document.getElementById(element);
         }
+
         // Convert "background-color" to "backgroundColor"
         var camelCase = name.replace(/\-(\w)/g, function(all, letter) {
             return letter.toUpperCase();
         });
+
         if (element.currentStyle) { // For IE
             return element.currentStyle[name] || element.currentStyle[camelCase];
         } else if (document.defaultView && document.defaultView.getComputedStyle) { // For Modern Browsers
