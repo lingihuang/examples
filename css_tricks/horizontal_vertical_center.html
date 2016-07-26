@@ -49,6 +49,21 @@ html, body {
     vertical-align: middle;
     width: 100px;
 }
+.outer-box-3 {
+    align-items: center;
+    background: #eee;
+    display: flex;
+    height: 200px;
+    justify-content: center;
+    margin: 10px;
+    position: relative;
+    width: 200px; 
+}
+.inner-box-3 {
+    background: #666;
+    height: 50%;
+    width: 50%;
+}
 </style>
 </head>
 
@@ -73,6 +88,11 @@ html, body {
     <h3>display: inline-block;</h3>
     <div class="outer-box-2">
         <div class="inner-box-2"></div>
+    </div>
+
+    <h3>display: flex;</h3>
+    <div class="outer-box-3">
+        <div class="inner-box-3"></div>
     </div>
 </body>
 </html>
