@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Flexbox Samples</title>
+<style type="text/css">
+html, body {
+    background-color: #efefef;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+body {
+    color: #333;
+    font: 16px normal "Noto Sans CJK TC Medium", "微軟正黑體", "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", "sans-serif";
+}
+.l-wrapper {
+    background: #fff;
+    display: flex;
+    flex-direction: column;   
+    justify-content: flex-start; /* align items in Main Axis */
+    align-items: stretch; /* align items in Cross Axis */
+    align-content: stretch; /* Extra space in Cross Axis */           
+    height: 100%;
+    width: 100%;
+}
+.l-header, .l-footer {
+    background-color: #eee;
+    font-size: 1.2em;
+    padding: 2vh 1vw;
+    text-align: center;   
+}
+.l-body {
+    background: #fff;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    margin: 0.3vh 0;
+}
+.l-main {
+    background: #eee;
+    flex: 2;
+    margin: 0 0.3vw;
+}
+.l-aside {
+    background: #eee;
+    flex: 1;
+    font-size: 1.2em;
+    padding: 2vh 1vw;
+    text-align: center;
+}
+
+.m-thumbnails {
+    background-color: #eee;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    list-style: none;
+    margin: 1vh;
+    padding: 0;
+}
+.m-thumbnails > .m-thumbnails-item {
+    display: flex;
+    flex: 1;
+    margin: 0.5vh;
+    padding: 0;
+}
+.m-thumbnails > .m-thumbnails-item > a {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3px;
+    text-decoration: none;
+}
+.m-thumbnails > .m-thumbnails-item img {
+    border: none;
+    height: auto;
+    max-width: 100%;
+}
+.m-thumbnails > .m-thumbnails-item p {
+    color: #333;
+    font-size: 0.8em;
+    line-height: 1.2;
+    margin: 0.5vh 0 0 0;
+}
+</style>
+</head>
+
+<body>
+<!--
+Related Posts
+1. A Complete Guide to Flexbox
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+2. A Visual Guide to CSS3 Flexbox Properties
+https://scotch.io/tutorials/a-visual-guide-to-css3-flexbox-properties
+3. Flexbox, or the Flexible Box Layout, is a new layout mode in CSS3 designed for laying out complex applications and web pages.
+http://tympanus.net/codrops/css_reference/flexbox/
+4. 第一次用 CSS - Flexbox 就上手
+http://andyyou.github.io/javascript/2015/09/09/understand-flexbox.html
+5. CSS Flexbox Layout 學習心得筆記
+http://sweeteason.pixnet.net/blog/post/42781628-css-flexbox-layout-%E5%AD%B8%E7%BF%92%E5%BF%83%E5%BE%97
+6. http://flexboxin5.com/
+7. https://jsfiddle.net/MadLittleMods/LmYay/
+-->
+<div class="l-wrapper">
+    <header class="l-header">Header</header>
+    <section class="l-body">
+        <aside class="l-aside">Aside</aside>
+        <main class="l-main">
+            <ul class="m-thumbnails">
+                <li class="m-thumbnails-item">
+                    <a href="#">
+                        <img src="https://scontent-tpe1-1.xx.fbcdn.net/t31.0-8/13691143_10154395830644596_4837109732497868686_o.jpg" />
+                        <p>Boeuf Bourguignon</p>
+                    </a>
+                </li>
+                <li class="m-thumbnails-item">
+                    <a href="#">
+                        <img src="https://scontent-tpe1-1.xx.fbcdn.net/t31.0-8/13691143_10154395830644596_4837109732497868686_o.jpg" />
+                        <p>Boeuf Bourguignon</p>
+                    </a>
+                </li>
+                <li class="m-thumbnails-item">
+                    <a href="#">
+                        <img src="https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/1476358_10152110433504596_1662918905_n.jpg?oh=d67ae4261b38f5cc4c1c51dc4cc4811a&oe=581DB1C2" />
+                        <p>Stewed Chicken with Red Wine and Ratatouille</p>
+                    </a>
+                </li>
+                <li class="m-thumbnails-item">
+                    <a href="#">
+                        <img src="https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/10501814_10153482764824596_2557000126906968493_n.jpg?oh=3f7c3bda956ca0481c8fe4ba9e9724da&oe=5815361D" />
+                        <p>Pre-birthday Dinner</p>
+                    </a>
+                </li>
+                <li class="m-thumbnails-item">
+                    <a href="#">
+                        <img src="https://scontent-tpe1-1.xx.fbcdn.net/t31.0-8/13691143_10154395830644596_4837109732497868686_o.jpg" />
+                        <p>Boeuf Bourguignon</p>
+                    </a>
+                </li>
+                <li class="m-thumbnails-item">
+                    <a href="#">
+                        <img src="https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/1476358_10152110433504596_1662918905_n.jpg?oh=d67ae4261b38f5cc4c1c51dc4cc4811a&oe=581DB1C2" />
+                        <p>Stewed Chicken with Red Wine and Ratatouille</p>
+                    </a>
+                </li>
+            </ul>
+        </main>
+        <aside class="l-aside">Aside</aside>
+    </section>
+    <footer class="l-footer">Footer</footer>
+</div>
+
+</body>
+</html>
